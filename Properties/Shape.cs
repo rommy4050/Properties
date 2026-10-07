@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Properties
 {
-    public class Shape
+    public abstract class Shape
     {
         public string Name { get; set; }
         public Shape(string name)
@@ -16,7 +16,7 @@ namespace Properties
 
     }
 
-    public class Circle
+    public class Circle : Shape  
     {
         private double radius;
 
@@ -27,13 +27,13 @@ namespace Properties
                 radius = value; }
         }
 
-        public Circle(int r) { Radius = r; }
+        public Circle(int r):base("Circle") { Radius = r; }
         public double Area() { return Math.Pow(Radius,2)*Math.PI; }
         public double Perimeter() { return 2*Math.PI*Radius; }
 
     }
     //Gooday Mate
-    public class Rectangle
+    public class Rectangle : Shape
     {
         private double length;
 
@@ -51,14 +51,14 @@ namespace Properties
             set { if(value>0)
                     width = value; }
         }
-        public Rectangle(double length,double width)
+        public Rectangle(double length,double width, string name):base(name)
         {
             Length=length;
             Width = width;
         }
 
-        public double Area() { return Length*Width; }
-        public double Perimeter() { return 2 * Length*Width; }
+         abstract public double Area();
+        public double Perimeter();
     }
 
     public class Square : Rectangle
@@ -66,7 +66,7 @@ namespace Properties
         //פעולה בונה של ריבוע 
         //מזמנת את הפעולה הבונה של ההורה (כדי ליצור ריבוע קודם צריך שיהיה
         //מלבן)
-        public Square(double length):base(length,length)
+        public Square(double length):base(length,length, "Square")
         {
 
         }
